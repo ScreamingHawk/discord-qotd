@@ -1,0 +1,22 @@
+service: discord-qotd
+
+plugins:
+  - serverless-dotenv-plugin
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  memorySize: 128
+  timeout: 10
+  versionFunctions: false
+  iamManagedPolicies:
+    - "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+  environment:
+    discordToken: ${env:DISCORD_TOKEN}
+    discordChannel: ${env:DISCORD_CHANNEL}
+
+functions:
+  qotd:
+    handler: src/qotd.qotd
+    events:
+      - schedule: rate(24 hours)
