@@ -28,9 +28,15 @@ module.exports.qotd = async (event, context, callback) => {
 	// Get QOTD from reddit
 	let q = null
 	try {
-		const resp = await fetch('https://reddit.com/r/askreddit/.json?limit=1')
+		const resp = await fetch('https://reddit.com/r/askreddit/.json?limit=3')
 		const data = await resp.json()
-		q = dotty.get(data, "data.children.0.data.title")
+		// Get the first result that doesn't contain "reddit"
+		for (let i = 0; i < 3; i++) {
+			q = dotty.get(data, `data.children.${i}.data.title`)
+			if (q.toLowerCase().indexOf("reddit") == -1) {
+				break
+			}
+		}
 	} catch (err) {
 		console.error(`Error calling Reddit: ${err}`)
 		return callback(`Error calling Reddit: ${err}`)
