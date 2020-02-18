@@ -49,7 +49,7 @@ module.exports.qotd = async (event, context, callback) => {
 	// Strip tags
 	q = q.replace(/\[.*\]/, '').trim()
 	// Add ?
-	if (q.charAt(q.length - 1) != '?') {
+	if (q.match("/\?$/")) {
 		q += '?'
 	}
 
