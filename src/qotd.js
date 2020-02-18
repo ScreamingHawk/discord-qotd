@@ -21,8 +21,8 @@ module.exports.qotd = async (event, context, callback) => {
 	// Get channel
 	const channel = discord.channels.get(channelId)
 	if (!channel) {
-		console.error(`Invalid default channel ${defaultChannel}`)
-		return callback(`Invalid default channel ${defaultChannel}`)
+		console.error(`Invalid channel ${channelId}`)
+		return callback(`Invalid channel ${channelId}`)
 	}
 
 	// Get QOTD from reddit
@@ -44,7 +44,6 @@ module.exports.qotd = async (event, context, callback) => {
 
 	if (!q) {
 		console.error("Unable to get question from Reddit")
-		console.log(data)
 		return callback("Unable to get question from Reddit")
 	}
 	// Strip tags
