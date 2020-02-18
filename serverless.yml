@@ -19,4 +19,4 @@ functions:
   qotd:
     handler: src/qotd.qotd
     events:
-      - schedule: cron(0 0 * * ? *)
+      - schedule: cron(0 23 * * ? *)
