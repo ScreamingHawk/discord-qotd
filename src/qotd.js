@@ -33,7 +33,7 @@ module.exports.qotd = async (event, context, callback) => {
 		// Get the first result that doesn't contain "reddit"
 		for (let i = 0; i < 3; i++) {
 			q = dotty.get(data, `data.children.${i}.data.title`)
-			if (q.match(/reddit/i)) {
+			if (!q.match(/reddit/i)) {
 				break
 			}
 		}
