@@ -50,10 +50,6 @@ module.exports.qotd = async (event, context, callback) => {
 	}
 	// Strip tags
 	q = q.replace(/\[.*\]/, '').trim()
-	// Add ?
-	if (q.match("/\?$/")) {
-		q += '?'
-	}
 
 	// Send it
 	console.debug('Sending QOTD')
