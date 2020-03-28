@@ -8,6 +8,8 @@ const discord = new discordjs.Client()
 
 const channelId = process.env.discordChannel || "478506811238907904"
 
+const maxQuestionTest = 5
+
 module.exports.qotd = async (event, context, callback) => {
 	// Login to discord
 	try {
@@ -28,10 +30,10 @@ module.exports.qotd = async (event, context, callback) => {
 	// Get QOTD from reddit
 	let q = null
 	try {
-		const resp = await fetch('https://reddit.com/r/askreddit/.json?limit=3')
+		const resp = await fetch(`https://reddit.com/r/askreddit/.json?limit=${maxQuestionTest}`)
 		const data = await resp.json()
 		// Get the first result that doesn't contain "reddit" or start with "PSA:" and ends with a ?
-		for (let i = 0; i < 3; i++) {
+		for (let i = 0; i < maxQuestionTest; i++) {
 			q = dotty.get(data, `data.children.${i}.data.title`)
 			if (!q.match(/reddit/i) && !q.match(/^PSA:/i) && q.match(/.*\?$/)) {
 				break
