@@ -8,7 +8,7 @@ const discord = new discordjs.Client()
 
 const channelId = process.env.discordChannel || "478506811238907904"
 
-const maxQuestionTest = 5
+const maxQuestionTest = 10
 
 module.exports.qotd = async (event, context, callback) => {
 	// Login to discord
