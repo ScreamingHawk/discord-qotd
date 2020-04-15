@@ -48,8 +48,10 @@ module.exports.qotd = async (event, context, callback) => {
 		console.error("Unable to get question from Reddit")
 		return callback("Unable to get question from Reddit")
 	}
-	// Strip tags
-	q = q.replace(/\[.*\]/, '').trim()
+	// Format
+	q = q.replace(/\[.*\]/, '') // Strip tags
+		.trim() // Remove whitespace
+		.replace(/^\w/, c => c.toUpperCase()) // Uppercase first character
 
 	// Send it
 	console.debug('Sending QOTD')
