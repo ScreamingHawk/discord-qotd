@@ -32,10 +32,10 @@ module.exports.qotd = async (event, context, callback) => {
 	try {
 		const resp = await fetch(`https://reddit.com/r/askreddit/.json?limit=${maxQuestionTest}`)
 		const data = await resp.json()
-		// Get the first result that doesn't contain "reddit" or start with "PSA:" and ends with a ?
+		// Get the first result that doesn't contain "reddit" or start with "PSA:" or contains "people who" and ends with a ?
 		for (let i = 0; i < maxQuestionTest; i++) {
 			q = dotty.get(data, `data.children.${i}.data.title`)
-			if (!q.match(/reddit/i) && !q.match(/^PSA:/i) && q.match(/.*\?$/)) {
+			if (!q.match(/reddit/i) && !q.match(/people\swho/i) && !q.match(/^PSA:/i) && q.match(/.*\?$/)) {
 				break
 			}
 		}
