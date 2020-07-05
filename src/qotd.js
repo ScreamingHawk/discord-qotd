@@ -50,6 +50,7 @@ module.exports.qotd = async (event, context, callback) => {
 	}
 	// Format
 	q = q.replace(/\[.*\]/, '') // Strip tags
+		.replace(/&amp;/, '&') // Fix &amp;
 		.trim() // Remove whitespace
 		.replace(/^\w/, c => c.toUpperCase()) // Uppercase first character
 
