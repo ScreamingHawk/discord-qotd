@@ -18,7 +18,7 @@ cp env.example .env
 
 Modify the values in the `.env` file with your values where:
 * `DISCORD_TOKEN` is your discord bot's token
-* `DISCORD_CHANNEL` is the default channel id for your notifications
+* `DISCORD_CHANNELS` are the (comma separated) channel ids for your notifications
 
 ## Deployment
 
@@ -43,7 +43,7 @@ sls logs -f qotd --aws-profile default
 Replace `XXX` with your env values.
 
 ```sh
-sls invoke local -f qotd -e discordToken=XXX -e discordChannel=XXX
+sls invoke local -f qotd -e discordToken=XXX -e discordChannels=XXX
 ```
 
 ## Credits

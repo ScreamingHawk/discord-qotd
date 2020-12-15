@@ -6,7 +6,7 @@ const dotty = require('dotty')
 const discordjs = require('discord.js')
 const discord = new discordjs.Client()
 
-const channelId = process.env.discordChannel || "478506811238907904"
+const channelIds = (process.env.discordChannels || "478506811238907904").split(',')
 
 const maxQuestionTest = 10
 
@@ -21,10 +21,17 @@ module.exports.qotd = async (event, context, callback) => {
 	}
 
 	// Get channel
-	const channel = discord.channels.get(channelId)
-	if (!channel) {
-		console.error(`Invalid channel ${channelId}`)
-		return callback(`Invalid channel ${channelId}`)
+	const channels = []
+	for (const channelId of channelIds) {
+		const channel = discord.channels.get(channelId)
+		if (!channel) {
+			console.error(`Invalid channel ${channelId}`)
+		} else {
+			channels.push(channel)
+		}
+	}
+	if (!channels.length) {
+		return callback(`Invalid channels ${channelIds.join(',')}`)
 	}
 
 	// Get QOTD from reddit
@@ -56,7 +63,9 @@ module.exports.qotd = async (event, context, callback) => {
 
 	// Send it
 	console.debug('Sending QOTD')
-	await channel.send('```' + q + '```')
+	for (const channel of channels) {
+		await channel.send('```' + q + '```')
+	}
 	console.debug('QOTD sent')
 
 	// Logout of discord

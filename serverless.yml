@@ -13,7 +13,7 @@ provider:
     - "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
   environment:
     discordToken: ${env:DISCORD_TOKEN}
-    discordChannel: ${env:DISCORD_CHANNEL}
+    discordChannels: ${env:DISCORD_CHANNELS}
 
 functions:
   qotd:
