@@ -41,6 +41,10 @@ module.exports.qotd = async (event, context, callback) => {
 		const data = await resp.json()
 		// Get the first result that doesn't contain "reddit" or start with "PSA:" or contains "people who" and ends with a ?
 		for (let i = 0; i < maxQuestionTest; i++) {
+			if (dotty.get(data, `data.children.${i}.data.stickied`) == true) {
+				// Skip stickied questions
+				continue
+			}
 			q = dotty.get(data, `data.children.${i}.data.title`)
 			if (!q.match(/reddit/i) && !q.match(/people\swho/i) && !q.match(/^PSA:/i) && q.match(/.*\?$/)) {
 				break
